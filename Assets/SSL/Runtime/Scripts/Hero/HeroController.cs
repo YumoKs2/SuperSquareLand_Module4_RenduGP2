@@ -38,4 +38,10 @@ public class HeroController : MonoBehaviour
 
         return inputMoveX;
     }
+
+    private float GetInputDash()
+    {
+        float inputDash = 0f;
+        if (Input.GetKey(KeyCode.E))
+    }
 }

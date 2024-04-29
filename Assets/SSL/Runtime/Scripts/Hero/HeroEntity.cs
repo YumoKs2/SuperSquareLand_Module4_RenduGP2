@@ -10,6 +10,9 @@ public class HeroEntity : MonoBehaviour
     private float _horizontalSpeed = 0f;
     private float _moveDirX = 0f;
 
+    [Header("Dash")]
+    [SerializeField] private HeroDashSettings _dashSettings;
+
     [Header("Orientation")]
     [SerializeField] private Transform _orientVisualRoot;
     private float _orientX = 1f;
@@ -70,7 +73,7 @@ public class HeroEntity : MonoBehaviour
         GUILayout.EndVertical();
     }
 
-    //ajoute d'un code pour l'accéleration du hero
+    //ajout d'un code pour l'accéleration du hero
     private void _Accelerate()
     {
         _horizontalSpeed += _movementsSettings.acceleration * Time.fixedDeltaTime;
@@ -79,16 +82,7 @@ public class HeroEntity : MonoBehaviour
         }
     }
 
-    private void _UpdateHorizontalSpeed()
-    {
-        if (_moveDirX != 0f) {
-            _Accelerate();
-        } else {
-            _Decelerate();
-        }
-    }
-
-    //ajoute d'un code pour la déceleration du hero
+    //ajout d'un code pour la déceleration du hero
     private void _Decelerate()
     {
         _horizontalSpeed -= _movementsSettings.deceleration * Time.fixedDeltaTime;
@@ -96,6 +90,20 @@ public class HeroEntity : MonoBehaviour
             _horizontalSpeed = 0f;
         }
     }
+
+    private void _UpdateHorizontalSpeed()
+    {
+        if (_moveDirX != 0f)
+        {
+            _Accelerate();
+        }
+        else
+        {
+            _Decelerate();
+        }
+    }
+
+    //ajout d'un code pour le turnback du hero
     private void _TurnBack()
     {
         _horizontalSpeed -= _movementsSettings.turnBackFrictions * Time.fixedDeltaTime;
@@ -108,5 +116,10 @@ public class HeroEntity : MonoBehaviour
     private bool _AreOrientAndMovementOpposite()
     {
         return _moveDirX * _orientX < 0f;
+    }
+
+    //ajout d'un code pour le dash du hero
+    private void _DashDuration()
+    {
     }
 }
