@@ -17,15 +17,20 @@ public class HeroEntity : MonoBehaviour
 
     public void SetMoveDirX(float dirX)
     {
+        _moveDirX = dirX;
     }
 
     private void FixedUpdate()
     {
         _ApplyHorizontalSpeed();
+
     }
 
     private void _ApplyHorizontalSpeed()
     {
+        Vector2 velocity = _rigidbody.velocity;
+        velocity.x = _horizontalSpeed * _moveDirX;
+        _rigidbody.velocity = velocity;
     }
     
     private void Update()
@@ -35,6 +40,10 @@ public class HeroEntity : MonoBehaviour
 
     private void _UpdateOrientVisual()
     {
+        if (_moveDirX == 0f) return;
+        Vector3 newScale = _orientVisualRoot.localScale;
+        newScale.x = _moveDirX;
+        _orientVisualRoot.localScale = newScale;
     }
 
     private void OnGUI()
@@ -46,16 +55,5 @@ public class HeroEntity : MonoBehaviour
         GUILayout.Label($"MoveDirX = {_moveDirX}");
         GUILayout.Label($"Horizontal Speed = {_horizontalSpeed}");
         GUILayout.EndVertical();
-    }
-    public void SetMoveDirX(float dirX)
-    {
-        _moveDirX = dirX;
-    }
-
-    private voide _ApplyHorizontalSpeed()
-    {
-        Vector2 velocity = _rigidbody.velocity;
-        velocity.x = _horizontalSpeed * _moveDirX;
-        _rigidbody.velocity = velocity;
     }
 }
