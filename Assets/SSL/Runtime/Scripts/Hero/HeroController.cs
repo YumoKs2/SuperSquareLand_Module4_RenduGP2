@@ -23,10 +23,16 @@ public class HeroController : MonoBehaviour
         _entity.SetMoveDirX(GetInputMoveX());
 
         if (_GetInputDownJump()) {
-            if (_entity.IsTouchingGround && !_entity.IsJumping)
-            {
+            if (_entity.IsTouchingGround && !_entity.IsJumping) {
                 _entity.JumpStart();
-            }        }
+            }
+        }
+
+        if (_entity.IsJumpingImpulsing) {
+            if(!_GetInputDownJump() && _entity.IsJumpingMinDurationReached) { 
+            _entity.StopJumpImpulsion();}
+        }
+
         /*code pour le dash (ne fonctionne pas)
         if (GetInputDash() > 0f)
         {
@@ -64,5 +70,10 @@ public class HeroController : MonoBehaviour
     private bool _GetInputDownJump()
     {
         return Input.GetKeyDown(KeyCode.Space);
+    }
+
+    private bool _GetInputJump()
+    {
+        return Input.GetKey(KeyCode.Space);
     }
 }
