@@ -822,7 +822,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3aa90e189c58491468a67afb3329e400, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -831,8 +831,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!114 &6480041685457909243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,16 +846,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 7212136366118121974}
-  _movementsSettings:
+  _groundHorizontalMovementsSettings:
     acceleration: 20
     deceleration: 15
     turnBackFrictions: 25
     speedMax: 5
+  _airHorizontalMovementsSettings:
+    acceleration: 20
+    deceleration: 15
+    turnBackFrictions: 25
+    speedMax: 5
+  _dashSettings:
+    speed: 40
+    duration: 0.1
   _orientVisualRoot: {fileID: 3024582456938629764}
   _fallSettings:
     fallGravity: 20
     fallSpeedMax: 10
-  _guiDebug: 0
+  _groundDetector: {fileID: 6614297361320453907}
+  _jumpSettings:
+    jumpSpeed: 10
+    jumpMinDuration: 0.05
+    jumpMaxDuration: 0.15
+  _jumpFallSettings:
+    fallGravity: 30
+    fallSpeedMax: 10
+  _jumpHorizontalMovementSettings:
+    acceleration: 20
+    deceleration: 1
+    turnBackFrictions: 200
+    speedMax: 7
+  _guiDebug: 1
 --- !u!114 &6614297361320453907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,7 +893,7 @@ MonoBehaviour:
   - {fileID: 203643196923139263}
   - {fileID: 5060177279040936632}
   - {fileID: 6662331843491865519}
-  _detectionLength: 0.1
+  _detectionLength: 0.05
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
