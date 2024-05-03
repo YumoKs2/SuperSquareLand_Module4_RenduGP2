@@ -31,6 +31,11 @@ public class HeroController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _entity.Dash();
+        }
+
         _UpdateJumpBuffer();
 
         _entity.SetMoveDirX(GetInputMoveX());
@@ -65,12 +70,6 @@ public class HeroController : MonoBehaviour
         }
 
         _entityWasTouchingGround = _entity.IsTouchingGround;
-
-        /*code pour le dash (ne fonctionne pas)
-        if (GetInputDash() > 0f)
-        {
-            DashManager.IsDashing = true;
-        }*/
     }
 
     //JOUR1
@@ -87,17 +86,6 @@ public class HeroController : MonoBehaviour
         }
         return inputMoveX;
     }
-
-    /*code pour le dash (ne fonctionne pas)
-    private float GetInputDash()
-    {
-        float inputDash = 0f;
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            inputDash = 1f;
-        }
-        return inputDash;
-    }*/
 
     //JOUR2
     private bool _GetInputDownJump()

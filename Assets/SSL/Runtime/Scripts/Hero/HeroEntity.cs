@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.Serialization;
 
 public class HeroEntity : MonoBehaviour
@@ -16,9 +17,8 @@ public class HeroEntity : MonoBehaviour
     [Header("Vertical Movements")]
     private float _verticalSpeed = 0f;
 
-    /*code pour le dash (ne fonctionne pas)
     [Header("Dash")]
-    [SerializeField] private HeroDashSettings _dashSettings;*/
+    [SerializeField] private HeroDashSettings _dashSettings;
 
     [Header("Orientation")]
     [SerializeField] private Transform _orientVisualRoot;
@@ -34,6 +34,7 @@ public class HeroEntity : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private HeroJumpSettings _jumpSettings;
     [SerializeField] private HeroFallSettings _jumpFallSettings;
+    [SerializeField] private HeroJumpHorizontalMovementSettings _jumpHorizontalMovementSettings;
 
     [Header("Debug")]
     [SerializeField] private bool _guiDebug = false;
@@ -46,12 +47,6 @@ public class HeroEntity : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*code pour le dash (ne fonctionne pas)
-        if (DashManager.IsDashing)
-        {
-            return;
-        }*/
-
         _ApplyGroundDetection();
         
         HeroHorizontalMovementsSettings horizontalMovementSettings = _GetCurrentHorizontalMovementSettings();
@@ -93,6 +88,21 @@ public class HeroEntity : MonoBehaviour
     private void Update()
     {
         _UpdateOrientVisual();
+
+        if (_isDashing)
+        {
+            _dashTimer += Time.deltaTime;
+
+            if (_dashTimer < _dashSettings.duration)
+            {
+                _horizontalSpeed = _dashSettings.speed;
+            }
+            else
+            {
+                _isDashing = false;
+                _horizontalSpeed = 0f;
+            }
+        }
     }
 
     private void _UpdateOrientVisual()
@@ -172,27 +182,35 @@ public class HeroEntity : MonoBehaviour
         return _moveDirX * _orientX < 0f;
     }
 
-    /*ajout d'un code pour activer le dash du hero et vérifier si le dash est en cours ou non (ne fonctionne pas)
+    //ajout d'un code pour le dash
+    private float _dashTimer = 0f;
     private bool _isDashing = false;
 
-    public void ActivateDash()
+    public void Dash()
     {
         if (!_isDashing)
         {
             _isDashing = true;
-            _horizontalSpeed = _dashSettings.speed * _orientX;
-            Invoke(nameof(DeactivateDash), _dashSettings.duration);
+            _dashTimer = 0f;
         }
     }
 
-    private void DeactivateDash()
+    private IEnumerator PerformDash()
     {
-        _isDashing = false;
+        float dashTimer = 0f;
+
+        while (dashTimer < _dashSettings.duration)
+        {
+            _horizontalSpeed = _dashSettings.speed;
+            dashTimer += Time.deltaTime;
+            yield return null;
+        }
+
         _horizontalSpeed = 0f;
-    }*/
+        _isDashing = false;
+    }
 
     //JOUR2
-
     //gravité & vertical speed
     private void _ApplyFallGravity(HeroFallSettings settings)
     {
