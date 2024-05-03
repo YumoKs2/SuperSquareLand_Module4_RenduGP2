@@ -8,6 +8,12 @@ public class CameraProfile : MonoBehaviour
     [Header("Follow")]
     [SerializeField] private CameraFollowable _targetToFollow = null;
     private Camera _camera;
+    [SerializeField] private float _followOffsetX = 8f;
+    [SerializeField] private float _followOffsetDamping = 1.5f;
+
+    [Header("Autoscroll")]
+    [SerializeField] private float _autoScrollHorizontalScroll = 1f;
+    [SerializeField] private float _autoScrollVerticalScroll = 0f;
 
     [Header("Damping")]
     [SerializeField] private bool _useDampingHorizontally = false;
@@ -34,7 +40,8 @@ public class CameraProfile : MonoBehaviour
     public enum CameraProfileType
     {
         Static =0,
-        FollowTarget
+        FollowTarget,
+        AutoScroll
     }
 
     public CameraProfileType ProfileType => _profileType;
