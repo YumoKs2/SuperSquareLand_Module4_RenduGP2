@@ -9,6 +9,12 @@ public class CameraProfile : MonoBehaviour
     [SerializeField] private CameraFollowable _targetToFollow = null;
     private Camera _camera;
 
+    [Header("Damping")]
+    [SerializeField] private bool _useDampingHorizontally = false;
+    [SerializeField] private float _horizontalDampingFactor = 5f;
+    [SerializeField] private bool _useDampingVertically = false;
+    [SerializeField] private float _verticalDampingFactor = 5f;
+
     public float CameraSize => _camera.orthographicSize;
 
     public Vector3 Position => _camera.transform.position;
@@ -30,4 +36,12 @@ public class CameraProfile : MonoBehaviour
     public CameraProfileType ProfileType => _profileType;
 
     public CameraFollowable TargetToFollow => _targetToFollow;
+
+    public bool UseDampingHorizontally => _useDampingHorizontally;
+
+    public float HorizontalDampingFactor => _horizontalDampingFactor;
+
+    public bool UseDampingVertically => _useDampingVertically;
+   
+    public float VerticalDampingFactor => _verticalDampingFactor;
 }
