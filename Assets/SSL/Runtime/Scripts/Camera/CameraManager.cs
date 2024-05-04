@@ -35,15 +35,18 @@ public class CameraManager : MonoBehaviour
     {
         Vector3 nextPosition = _FindCameraNextPosition();
         nextPosition = _ClampPositionIntoBounds(nextPosition);
-        nextPosition =_ApplyDamping(nextPosition);
+        nextPosition = _ApplyDamping(nextPosition);
 
-        if (_IsPlayingProfileTransition()) {
+        if (_IsPlayingProfileTransition())
+        {
             _profileTransitionTimer += Time.deltaTime;
             Vector3 transitionPosition = _CalculateProfileTransitionPosition(nextPosition);
             _SetCameraPosition(transitionPosition);
             float transitionSize = _CalculateProfileTransitionCameraSize(_currentCameraProfile.CameraSize);
             _SetCameraSize(transitionSize);
-        } else {
+        }
+        else
+        {
             _SetCameraPosition(nextPosition);
             _SetCameraSize(_currentCameraProfile.CameraSize);
         }

@@ -2,7 +2,7 @@
 
 public class CameraProfile : MonoBehaviour
 {
-    [Header ("Type")]
+    [Header("Type")]
     [SerializeField] private CameraProfileType _profileType = CameraProfileType.Static;
 
     [Header("Follow")]
@@ -11,9 +11,10 @@ public class CameraProfile : MonoBehaviour
     [SerializeField] private float _followOffsetX = 8f;
     [SerializeField] private float _followOffsetDamping = 1.5f;
 
-    [Header("Autoscroll")]
-    [SerializeField] private float _autoScrollHorizontalScroll = 1f;
-    [SerializeField] private float _autoScrollVerticalScroll = 0f;
+    //code pour l'autoscroll (ne fonctionne pas)
+    /*[Header("Autoscroll")]
+    [SerializeField] private float _autoScrollHorizontalSpeed = 1f;
+    [SerializeField] private float _autoScrollVerticalSpeed = 0f;*/
 
     [Header("Damping")]
     [SerializeField] private bool _useDampingHorizontally = false;
@@ -32,14 +33,15 @@ public class CameraProfile : MonoBehaviour
     private void Awake()
     {
         _camera = GetComponent<Camera>();
-        if ( _camera != null) {
+        if (_camera != null)
+        {
             _camera.enabled = false;
         }
     }
 
     public enum CameraProfileType
     {
-        Static =0,
+        Static = 0,
         FollowTarget,
         AutoScroll
     }
@@ -53,7 +55,7 @@ public class CameraProfile : MonoBehaviour
     public float HorizontalDampingFactor => _horizontalDampingFactor;
 
     public bool UseDampingVertically => _useDampingVertically;
-   
+
     public float VerticalDampingFactor => _verticalDampingFactor;
 
     public bool HasBounds => _hasBounds;
@@ -66,4 +68,9 @@ public class CameraProfile : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(_boundsRect.center, _boundsRect.size);
     }
+
+    /*code pour l'autoscroll (ne fonctionne pas)
+    public float AutoScrollHorizontalSpeed => _autoScrollHorizontalSpeed;
+
+    public float AutoScrollVerticalSpeed => _autoScrollVerticalSpeed;*/
 }
